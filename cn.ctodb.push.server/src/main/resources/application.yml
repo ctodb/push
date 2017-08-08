@@ -1,0 +1,16 @@
+spring:
+    hazelcast: null
+    kafka: null
+    redis:
+        password: 123456
+        pool:
+            maxIdle: 8
+            minIdle: 0
+            maxActive: 8
+            maxWait: -1
+        sentinel:
+            master: mymaster
+            nodes: 10.15.0.246:26379,10.15.0.247:26379,10.15.0.248:26379
+application:
+    server:
+        port: 9999
