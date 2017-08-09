@@ -21,7 +21,7 @@ public class ClientTest {
         logger.debug("init");
         ClientProperties properties = new ClientProperties();
         properties.setServerHost("localhost");
-        properties.setServerPort(9999);
+        properties.setServerPort(9901);
         client = new Client(properties);
         try {
             client.start();
