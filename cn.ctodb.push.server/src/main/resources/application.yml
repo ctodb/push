@@ -1,6 +1,23 @@
 spring:
     hazelcast: null
-    kafka: null
+    kafka:
+        producer:
+            bootstrap-servers:
+              - server.ctodb.cn:9092
+            retries: 0
+            batch-size: 16384
+            buffer-memory: 33554432
+            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+            value-serializer: org.apache.kafka.common.serialization.StringSerializer
+        consumer:
+            bootstrap-servers:
+              - server.ctodb.cn:9092
+            group-id: foo
+            auto-offset-reset: earliest
+            enable-auto-commit: true
+            auto-commit-interval: 100
+            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     redis:
         # 单服务配置
         host: server.ctodb.cn
