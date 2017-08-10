@@ -6,7 +6,14 @@
 	<artifactId>push-parent</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-
+	<developers>
+		<developer>
+			<name>cc</name>
+			<email>lichaohn@163.com</email>
+			<organizationUrl>http://www.ctodb.cn</organizationUrl>
+			<url>https://github.com/ctodb/push</url>
+		</developer>
+	</developers>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
 		<dependency>
