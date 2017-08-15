@@ -1,5 +1,6 @@
 package cn.ctodb.push.handler;
 
+import cn.ctodb.push.dto.Command;
 import cn.ctodb.push.dto.Packet;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -9,6 +10,11 @@ import io.netty.channel.ChannelHandlerContext;
  * @author ohun@live.cn
  */
 public final class HeartBeatHandler extends PacketHandler {
+
+    @Override
+    public Command cmd() {
+        return Command.HEARTBEAT;
+    }
 
     @Override
     public void handle(Packet packet, ChannelHandlerContext ctx) {

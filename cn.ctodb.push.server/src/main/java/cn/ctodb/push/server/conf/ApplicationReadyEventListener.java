@@ -17,7 +17,6 @@ public class ApplicationReadyEventListener implements ApplicationListener<Applic
 	@Override
 	public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
 		new Thread(mgsServer).start();
-
 	}
 
 	@Override

@@ -18,22 +18,22 @@ import java.util.Map;
  */
 public final class PacketReceiver {
 
-	private static final Logger logger = LoggerFactory.getLogger(PacketReceiver.class);
-	private final Map<Byte, PacketHandler> handlers = new HashMap<>();
+    private static final Logger logger = LoggerFactory.getLogger(PacketReceiver.class);
+    private final Map<Byte, PacketHandler> handlers = new HashMap<>();
 
-	public void register(Command command, PacketHandler handler) {
-		logger.debug("register : {}", command.name());
-		handlers.put(command.cmd, handler);
-	}
+    public void register(PacketHandler handler) {
+        logger.debug("register : {}", handler.cmd().name());
+        handlers.put(handler.cmd().cmd, handler);
+    }
 
-	public void onReceive(Packet packet, ChannelHandlerContext ctx) {
-		PacketHandler handler = handlers.get(packet.getCmd());
-		if (handler != null) {
-			try {
-				handler.handle(packet, ctx);
-			} catch (Throwable e) {
-				e.printStackTrace();
-			}
-		}
-	}
+    public void onReceive(Packet packet, ChannelHandlerContext ctx) {
+        PacketHandler handler = handlers.get(packet.getCmd());
+        if (handler != null) {
+            try {
+                handler.handle(packet, ctx);
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
