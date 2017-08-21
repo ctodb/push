@@ -1,9 +1,9 @@
-package cn.ctodb.push.handler;
+package cn.ctodb.push.server.handler;
 
 import cn.ctodb.push.core.Connection;
 import cn.ctodb.push.dto.Command;
 import cn.ctodb.push.dto.TextMessage;
-import io.netty.channel.ChannelHandlerContext;
+import cn.ctodb.push.handler.AbstractHandler;
 
 /**
  * Created by ohun on 2015/12/22.

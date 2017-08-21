@@ -2,6 +2,8 @@ package cn.ctodb.push.client;
 
 import java.io.IOException;
 
+import cn.ctodb.push.core.Connection;
+import cn.ctodb.push.core.PacketReceiver;
 import cn.ctodb.push.dto.Command;
 import cn.ctodb.push.dto.Packet;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -11,6 +13,11 @@ import io.netty.channel.ChannelHandler.Sharable;
 
 @Sharable
 public class ClientHandler extends ChannelInboundHandlerAdapter {
+	private PacketReceiver packetReceiver;
+
+	public ClientHandler(PacketReceiver packetReceiver) {
+		this.packetReceiver = packetReceiver;
+	}
 
 	/**
 	 * tcp链路简历成功后调用
@@ -31,7 +38,9 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws IOException {
 		Packet packet = (Packet) msg;
-		System.out.println(Command.toCMD(packet.getCmd()));
+		Connection connection = new Connection();
+		connection.setChc(ctx);
+		packetReceiver.onReceive(packet, connection);
 	}
 
 	/**

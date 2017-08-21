@@ -26,11 +26,12 @@ public final class PacketReceiver {
         handlers.put(handler.cmd().cmd, handler);
     }
 
-    public void onReceive(Packet packet, ChannelHandlerContext ctx) {
+    public void onReceive(Packet packet, Connection connection) {
         PacketHandler handler = handlers.get(packet.getCmd());
+        logger.debug("new packet : {}",packet.getCmd());
         if (handler != null) {
             try {
-                handler.handle(packet, ctx);
+                handler.handle(packet, connection);
             } catch (Throwable e) {
                 e.printStackTrace();
             }

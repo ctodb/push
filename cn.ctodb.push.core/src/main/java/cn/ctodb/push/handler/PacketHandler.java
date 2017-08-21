@@ -1,5 +1,6 @@
 package cn.ctodb.push.handler;
 
+import cn.ctodb.push.core.Connection;
 import cn.ctodb.push.dto.Command;
 import cn.ctodb.push.dto.Packet;
 import io.netty.channel.ChannelHandlerContext;
@@ -17,6 +18,6 @@ public abstract class PacketHandler {
 
     public abstract Command cmd();
 
-    public abstract void handle(Packet packet, ChannelHandlerContext ctx);
+    public abstract void handle(Packet packet, Connection connection);
 
 }

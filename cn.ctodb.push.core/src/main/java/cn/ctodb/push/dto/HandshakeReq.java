@@ -3,7 +3,8 @@ package cn.ctodb.push.dto;
 /**
  * Created by cc on 2017/8/11.
  */
-public class Handshake {
+@org.msgpack.annotation.Message
+public class HandshakeReq {
 
     public String deviceId;
     public String osName;

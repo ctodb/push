@@ -1,5 +1,7 @@
 package cn.ctodb.push.client;
 
+import cn.ctodb.push.client.conf.ClientConfiguration;
+import cn.ctodb.push.core.PacketReceiver;
 import cn.ctodb.push.dto.Message;
 import cn.ctodb.push.dto.Packet;
 import cn.ctodb.push.utils.MsgPackDecode;
@@ -29,81 +31,81 @@ import java.io.IOException;
  */
 public class Client implements Runnable {
 
-	private Logger logger = LoggerFactory.getLogger(Client.class);
+    private Logger logger = LoggerFactory.getLogger(Client.class);
 
-	private Status status = Status.STOP;
+    private Status status = Status.STOP;
 
-	private ClientProperties clientProperties;
-	private Channel channel;
-	private EventLoopGroup workerGroup;
+    private ClientProperties clientProperties;
+    private Channel channel;
+    private EventLoopGroup workerGroup;
 
-	public Client(ClientProperties clientProperties) {
-		this.clientProperties = clientProperties;
-	}
+    public Client(ClientProperties clientProperties) {
+        this.clientProperties = clientProperties;
+    }
 
-	public void start() throws IOException, InterruptedException {
-		if (status.equals(Status.STOP)) {
-			status = Status.STARTING;
-			new Thread(this).start();
-			new Thread(new HeartBeatTasker(this)).start();
-			logger.info("client start...");
-		}
-	}
+    public void start() throws IOException, InterruptedException {
+        if (status.equals(Status.STOP)) {
+            status = Status.STARTING;
+            new Thread(this).start();
+            new Thread(new HeartBeatTasker(this)).start();
+            logger.info("client start...");
+        }
+    }
 
-	public void send(Packet packet) {
-		channel.writeAndFlush(packet);
-	}
+    public void send(Packet packet) {
+        channel.writeAndFlush(packet);
+    }
 
-	public void sendMessage(Message message) {
-		Packet packet = new Packet(message.getCmd());
-		try {
-			packet.setBody(new MessagePack().write(message));
-			channel.writeAndFlush(packet);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    public void sendMessage(Message message) {
+        Packet packet = new Packet(message.getCmd());
+        try {
+            packet.setBody(new MessagePack().write(message));
+            channel.writeAndFlush(packet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	public void run() {
-		workerGroup = new NioEventLoopGroup();
-		try {
-			Bootstrap b = new Bootstrap();
-			b.group(workerGroup);
-			b.channel(NioSocketChannel.class);
-			// b.option(ChannelOption.SO_KEEPALIVE, true);
-			b.handler(new ChannelInitializer<SocketChannel>() {
-				@Override
-				public void initChannel(SocketChannel ch) throws Exception {
-					ChannelPipeline pipeline = ch.pipeline();
-					pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(65536, 0, 4, 0, 4));
-					pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
-					pipeline.addLast("decoder", new MsgPackDecode());
-					pipeline.addLast("encoder", new MsgPackEncode());
-					pipeline.addLast(new ClientHandler());
-				}
-			});
-			channel = b.connect(clientProperties.getServerHost(), clientProperties.getServerPort()).sync().channel();
-			status = Status.START;
-			channel.closeFuture().sync();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		status = Status.STOP;
-	}
+    public void run() {
+        workerGroup = new NioEventLoopGroup();
+        try {
+            Bootstrap b = new Bootstrap();
+            b.group(workerGroup);
+            b.channel(NioSocketChannel.class);
+            // b.option(ChannelOption.SO_KEEPALIVE, true);
+            b.handler(new ChannelInitializer<SocketChannel>() {
+                @Override
+                public void initChannel(SocketChannel ch) throws Exception {
+                    ChannelPipeline pipeline = ch.pipeline();
+                    pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(65536, 0, 4, 0, 4));
+                    pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
+                    pipeline.addLast("decoder", new MsgPackDecode());
+                    pipeline.addLast("encoder", new MsgPackEncode());
+                    pipeline.addLast(ClientConfiguration.clientHandler());
+                }
+            });
+            channel = b.connect(clientProperties.getServerHost(), clientProperties.getServerPort()).sync().channel();
+            status = Status.START;
+            channel.closeFuture().sync();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        status = Status.STOP;
+    }
 
-	public void stop() {
-		if (workerGroup != null) {
-			channel.close();
-			workerGroup.shutdownGracefully();
-		}
-		status = Status.STOP;
-	}
+    public void stop() {
+        if (workerGroup != null) {
+            channel.close();
+            workerGroup.shutdownGracefully();
+        }
+        status = Status.STOP;
+    }
 
-	public Status getStatus() {
-		return status;
-	}
+    public Status getStatus() {
+        return status;
+    }
 
-	public enum Status {
-		STOP, START, STARTING
-	}
+    public enum Status {
+        STOP, START, STARTING
+    }
 }

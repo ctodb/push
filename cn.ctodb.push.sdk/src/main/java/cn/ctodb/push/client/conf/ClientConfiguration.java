@@ -1,0 +1,31 @@
+package cn.ctodb.push.client.conf;
+
+import cn.ctodb.push.client.ClientHandler;
+import cn.ctodb.push.client.handler.HandshakeHandler;
+import cn.ctodb.push.core.PacketReceiver;
+
+/**
+ * Created by cc on 2017/8/21.
+ */
+public class ClientConfiguration {
+
+    private static PacketReceiver packetReceiver;
+
+    static {
+        init();
+    }
+
+    public static void init() {
+        packetReceiver = new PacketReceiver();
+        packetReceiver.register(new HandshakeHandler());
+    }
+
+    public static PacketReceiver packetReceiver() {
+        return packetReceiver;
+    }
+
+    public static ClientHandler clientHandler() {
+        return new ClientHandler(packetReceiver());
+    }
+
+}
