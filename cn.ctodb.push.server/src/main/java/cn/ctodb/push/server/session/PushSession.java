@@ -6,29 +6,23 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class PushSession implements Session {
+public class PushSession implements Session {
 
+    private final Map<String, Object> sessionData = new HashMap<>();
     private String osName;
     private String osVersion;
     private String clientVersion;
     private String deviceId;
     private String userId;
-    private String tags;
-    private int heartbeat = 10000;// 10s
-
     private String sessionId;
     private long expireTime;
-
-    private final Map<String, Object> sessionData = new HashMap<>();
     private int status;
     private long startDate = System.currentTimeMillis();
     private long lastActiveDate;
-    private long clientPacketCount = 0;
-    private long serverPacketCount = 0;
 
     @Override
     public String getId() {
-        return getSessionId();
+        return sessionId;
     }
 
     @Override
@@ -89,10 +83,6 @@ public final class PushSession implements Session {
     @Override
     public boolean validate() {
         return false;
-    }
-
-    public String getSessionId() {
-        return sessionId;
     }
 
     public void setSessionId(String sessionId) {

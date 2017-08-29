@@ -1,7 +1,6 @@
 package cn.ctodb.push.client;
 
 import cn.ctodb.push.client.conf.ClientConfiguration;
-import cn.ctodb.push.core.PacketReceiver;
 import cn.ctodb.push.dto.Message;
 import cn.ctodb.push.dto.Packet;
 import cn.ctodb.push.utils.MsgPackDecode;

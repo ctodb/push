@@ -3,41 +3,40 @@ package cn.ctodb.push.server.session;
 import java.net.UnknownHostException;
 import java.security.cert.Certificate;
 import java.util.Date;
-import java.util.Locale;
 
-public interface Session {
+interface Session {
 
-    public static final int MAJOR_VERSION = 1;
-    public static final int MINOR_VERSION = 0;
+    static final int MAJOR_VERSION = 1;
+    static final int MINOR_VERSION = 0;
 
-    public static final int STATUS_CLOSED = -1;
-    public static final int STATUS_CONNECTED = 1;
-    public static final int STATUS_AUTHENTICATED = 3;
+    static final int STATUS_CLOSED = -1;
+    static final int STATUS_CONNECTED = 1;
+    static final int STATUS_AUTHENTICATED = 3;
 
-    public String getId();
+    String getId();
 
-    public int getStatus();
+    int getStatus();
 
-    public Date getCreationDate();
+    Date getCreationDate();
 
-    public Date getLastActiveDate();
+    Date getLastActiveDate();
 
-    public long getNumClientPackets();
+    long getNumClientPackets();
 
-    public long getNumServerPackets();
+    long getNumServerPackets();
 
-    public void close();
+    void close();
 
-    public boolean isClosed();
+    boolean isClosed();
 
-    public boolean isSecure();
+    boolean isSecure();
 
-    public Certificate[] getPeerCertificates();
+    Certificate[] getPeerCertificates();
 
-    public String getHostAddress() throws UnknownHostException;
+    String getHostAddress() throws UnknownHostException;
 
-    public String getHostName() throws UnknownHostException;
+    String getHostName() throws UnknownHostException;
 
-    public boolean validate();
+    boolean validate();
 
 }
