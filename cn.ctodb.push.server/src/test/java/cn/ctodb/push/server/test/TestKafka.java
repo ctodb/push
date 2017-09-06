@@ -1,6 +1,6 @@
 package cn.ctodb.push.server.test;
 
-import cn.ctodb.push.server.Application;
+import cn.ctodb.push.server.PushServerApp;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Created by cc on 2017/8/9.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(classes = PushServerApp.class)
 public class TestKafka {
 
     @Autowired

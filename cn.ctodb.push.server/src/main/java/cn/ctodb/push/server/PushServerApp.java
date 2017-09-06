@@ -8,10 +8,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableAsync
 @EnableScheduling
-public class Application {
+public class PushServerApp {
 
 	public static void main(String[] args) {
-		SpringApplication app = new SpringApplication(Application.class);
+		SpringApplication app = new SpringApplication(PushServerApp.class);
 		app.setWebEnvironment(false);
 		app.run(args);
 	}

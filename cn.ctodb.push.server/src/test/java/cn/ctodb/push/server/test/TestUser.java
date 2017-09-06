@@ -1,28 +1,18 @@
 package cn.ctodb.push.server.test;
 
 import cn.ctodb.push.server.UserManager;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import cn.ctodb.push.server.Application;
-
-import java.util.HashSet;
-import java.util.Set;
+import cn.ctodb.push.server.PushServerApp;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(classes = PushServerApp.class)
 public class TestUser {
     private Logger logger = LoggerFactory.getLogger(TestRedis.class);
 

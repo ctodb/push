@@ -39,6 +39,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         Packet packet = (Packet) msg;
         Connection connection = new Connection();
         connection.setChc(ctx);
+        Channel channel = ctx.channel();
         packetReceiver.onReceive(packet, connection);
     }
 
