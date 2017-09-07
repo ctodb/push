@@ -20,18 +20,18 @@ spring:
             value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     redis:
         # 单服务配置
-        host: server.ctodb.cn
-        port: 6379
-#        password: 123456
-#        pool:
-#            maxIdle: 8
-#            minIdle: 0
-#            maxActive: 8
-#            maxWait: -1
+#        host: server.ctodb.cn
+#        port: 6379
 # 哨兵模式配置
-#        sentinel:
-#            master: mymaster
-#            nodes: server.ctodb.cn:6379
+        password: 123456
+        pool:
+            maxIdle: 8
+            minIdle: 0
+            maxActive: 8
+            maxWait: -1
+        sentinel:
+            master: mymaster
+            nodes: 10.15.0.246:26379,10.15.0.247:26379,10.15.0.248:26379
 
 application:
     server:

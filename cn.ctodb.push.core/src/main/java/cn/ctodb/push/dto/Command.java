@@ -19,9 +19,18 @@ public enum Command {
     public final byte cmd;
 
     public static Command toCMD(byte b) {
-        Command[] values = values();
-        if (b > 0 && b < values.length)
-            return values[b - 1];
-        return UNKNOWN;
+        switch (b) {
+            case 1:
+                return HEARTBEAT;
+            case 10:
+                return HANDSHAKE_REQ;
+            case 11:
+                return HANDSHAKE_RESP;
+            case 100:
+                return TEXT_MESSAGE;
+            default:
+                return UNKNOWN;
+        }
     }
+
 }

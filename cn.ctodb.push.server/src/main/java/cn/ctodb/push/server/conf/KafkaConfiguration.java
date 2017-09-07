@@ -8,7 +8,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 /**
  * Created by cc on 2017/8/9.
  */
-@Configuration
+// @Configuration
 @EnableKafka
 public class KafkaConfiguration {
 

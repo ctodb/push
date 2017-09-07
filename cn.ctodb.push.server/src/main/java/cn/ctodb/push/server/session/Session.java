@@ -4,7 +4,7 @@ import java.net.UnknownHostException;
 import java.security.cert.Certificate;
 import java.util.Date;
 
-interface Session {
+public interface Session {
 
     static final int MAJOR_VERSION = 1;
     static final int MINOR_VERSION = 0;

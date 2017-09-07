@@ -8,7 +8,7 @@ public class Packet {
     private byte cmd; // 命令
     private short cc; // 校验码 暂时没有用到
     private byte flags; // 特性，如是否加密，是否压缩等
-    private int sessionId; // 会话id。客户端生成。
+    private String sessionId; // 会话id。客户端生成。
     private byte lrc; // 校验，纵向冗余校验。只校验head
     private byte[] body;
 
@@ -20,7 +20,7 @@ public class Packet {
     public Packet() {
     }
 
-    public Packet(byte cmd, int sessionId) {
+    public Packet(byte cmd, String sessionId) {
         this.cmd = cmd;
         this.sessionId = sessionId;
     }
@@ -29,7 +29,7 @@ public class Packet {
         this.cmd = cmd.cmd;
     }
 
-    public Packet(Command cmd, int sessionId) {
+    public Packet(Command cmd, String sessionId) {
         this.cmd = cmd.cmd;
         this.sessionId = sessionId;
     }
@@ -64,11 +64,11 @@ public class Packet {
         this.flags = flags;
     }
 
-    public int getSessionId() {
+    public String getSessionId() {
         return sessionId;
     }
 
-    public void setSessionId(int sessionId) {
+    public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
     }
 

@@ -19,6 +19,7 @@ public class SessionManager {
     private final String cacheKey = "__SESSIONS__";
 
     public void on(Session session) {
+        logger.info("new session : {}", session.getId());
         getCache().put(session.getId(), JSON.toJSONString(session));
     }
 
@@ -26,7 +27,11 @@ public class SessionManager {
         getCache().delete(session.getId());
     }
 
-    public BoundHashOperations<String, String, Object> getCache() {
+    public Session get(String sessionId) {
+        return JSON.parseObject(getCache().get(sessionId), PushSession.class);
+    }
+
+    public BoundHashOperations<String, String, String> getCache() {
         return redisTemplate.boundHashOps(cacheKey);
     }
 }

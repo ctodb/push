@@ -1,5 +1,6 @@
 package cn.ctodb.push.client.handler;
 
+import cn.ctodb.push.client.ClientInfo;
 import cn.ctodb.push.core.Connection;
 import cn.ctodb.push.dto.Command;
 import cn.ctodb.push.dto.HandshakeResp;
@@ -23,5 +24,6 @@ public class HandshakeHandler extends AbstractHandler<HandshakeResp> {
     @Override
     public void handle(HandshakeResp message, Connection connection) {
         logger.debug("握手成功:{}", message.sessionId);
+        ClientInfo.setSessionId(message.sessionId);
     }
 }

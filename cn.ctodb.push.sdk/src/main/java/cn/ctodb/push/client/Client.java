@@ -33,6 +33,7 @@ public class Client implements Runnable {
     private Logger logger = LoggerFactory.getLogger(Client.class);
 
     private Status status = Status.STOP;
+    private String sessionId = null;
 
     private ClientProperties clientProperties;
     private Channel channel;
@@ -56,7 +57,7 @@ public class Client implements Runnable {
     }
 
     public void sendMessage(Message message) {
-        Packet packet = new Packet(message.getCmd());
+        Packet packet = new Packet(message.getCmd(), ClientInfo.getSessionId());
         try {
             packet.setBody(new MessagePack().write(message));
             channel.writeAndFlush(packet);
@@ -102,6 +103,14 @@ public class Client implements Runnable {
 
     public Status getStatus() {
         return status;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     public enum Status {

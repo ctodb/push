@@ -17,7 +17,7 @@ public class ClientConfiguration {
 
     public static void init() {
         packetReceiver = new PacketReceiver();
-        packetReceiver.register(new HandshakeHandler());
+        packetReceiver.addHandler(new HandshakeHandler());
     }
 
     public static PacketReceiver packetReceiver() {

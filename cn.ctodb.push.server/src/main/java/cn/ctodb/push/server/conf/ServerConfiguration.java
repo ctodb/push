@@ -1,6 +1,8 @@
 package cn.ctodb.push.server.conf;
 
 import cn.ctodb.push.core.PacketReceiver;
+import cn.ctodb.push.dto.Command;
+import cn.ctodb.push.server.filter.AuthFilter;
 import cn.ctodb.push.server.handler.HandshakeHandler;
 import cn.ctodb.push.server.handler.HeartBeatHandler;
 import cn.ctodb.push.server.handler.TextMessageHandler;
@@ -38,7 +40,7 @@ public class ServerConfiguration {
     }
 
     @Bean
-    public MessagePack messagePack(){
+    public MessagePack messagePack() {
         return new MessagePack();
     }
 
@@ -50,10 +52,18 @@ public class ServerConfiguration {
     @Bean
     public PacketReceiver packetReceiver() {
         PacketReceiver packetReceiver = new PacketReceiver();
-        packetReceiver.register(heartBeatHandler());
-        packetReceiver.register(handshakeHandler());
-        packetReceiver.register(textMessageHandler());
+        packetReceiver.addHandler(heartBeatHandler());
+        packetReceiver.addHandler(handshakeHandler());
+        packetReceiver.addHandler(textMessageHandler());
+        packetReceiver.addFilter(authFilter());
         return packetReceiver;
+    }
+
+    @Bean
+    public AuthFilter authFilter() {
+        AuthFilter authFilter = new AuthFilter();
+        authFilter.addCmd(Command.TEXT_MESSAGE);
+        return authFilter;
     }
 
     @Bean
@@ -67,7 +77,7 @@ public class ServerConfiguration {
     }
 
     @Bean
-    public HandshakeHandler handshakeHandler(){
+    public HandshakeHandler handshakeHandler() {
         return new HandshakeHandler();
     }
 }
