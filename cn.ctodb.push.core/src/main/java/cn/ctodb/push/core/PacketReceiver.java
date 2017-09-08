@@ -22,11 +22,11 @@ public final class PacketReceiver {
 
     private static final Logger logger = LoggerFactory.getLogger(PacketReceiver.class);
     private static List<Filter> filterList = new ArrayList<>();
-    private static final Map<Byte, PacketHandler> handlers = new HashMap<>();
+    private static final Map<Command, PacketHandler> handlers = new HashMap<>();
 
     public void addHandler(PacketHandler handler) {
         logger.debug("register : {}", handler.cmd().name());
-        handlers.put(handler.cmd().cmd, handler);
+        handlers.put(handler.cmd(), handler);
     }
 
     public void addFilter(Filter filter) {
@@ -35,8 +35,9 @@ public final class PacketReceiver {
     }
 
     public void onReceive(Packet packet, Connection connection) {
-        PacketHandler handler = handlers.get(packet.getCmd());
-        logger.debug("new packet : {}", packet.getCmd());
+        Command command = Command.toCMD(packet.getCmd());
+        PacketHandler handler = handlers.get(command);
+        logger.debug("new packet : {}", command);
         if (handler == null) return;
         for (Filter filter : filterList) {
             if (filter.exec(packet, connection).equals(FilterResult.END)) return;

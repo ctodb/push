@@ -10,10 +10,13 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // 服务端消息处理统一入口
 @Sharable
 public class ServerHandler extends ChannelInboundHandlerAdapter {
+    private Logger logger = LoggerFactory.getLogger(ServerHandler.class);
     public static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
     private PacketReceiver packetReceiver;
@@ -24,13 +27,15 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception { // (2)
-//		Channel incoming = ctx.channel();
+        Channel incoming = ctx.channel();
+        logger.debug("handlerAdded : {}", incoming.remoteAddress());
         channels.add(ctx.channel());
     }
 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception { // (3)
-//		Channel incoming = ctx.channel();
+        Channel incoming = ctx.channel();
+        logger.debug("handlerRemoved : {}", incoming.remoteAddress());
         channels.remove(ctx.channel());
     }
 
@@ -46,20 +51,20 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception { // (5)
         Channel incoming = ctx.channel();
-        System.out.println("SimpleChatClient:" + incoming.remoteAddress() + "在线");
+        logger.debug("channelActive : {}", incoming.remoteAddress());
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception { // (6)
         Channel incoming = ctx.channel();
-        System.out.println("SimpleChatClient:" + incoming.remoteAddress() + "掉线");
+        logger.debug("channelInactive : {}", incoming.remoteAddress());
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         // 当出现异常就关闭连接
         Channel incoming = ctx.channel();
-        System.out.println("SimpleChatClient:" + incoming.remoteAddress() + "异常");
+        logger.error("exceptionCaught : " + incoming.remoteAddress(), cause);
         ctx.close();
     }
 }

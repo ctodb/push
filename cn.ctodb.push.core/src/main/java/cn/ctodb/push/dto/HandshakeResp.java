@@ -6,7 +6,6 @@ package cn.ctodb.push.dto;
 @org.msgpack.annotation.Message
 public class HandshakeResp {
 
-
     public byte[] serverKey;
     public int heartbeat;
     public String sessionId;
