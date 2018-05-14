@@ -1,24 +1,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>push-sdk</artifactId>
-	<parent>
-		<groupId>cn.ctodb.push</groupId>
-		<artifactId>push-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-	</parent>
-	<developers>
-		<developer>
-			<name>cc</name>
-			<email>lichaohn@163.com</email>
-			<organizationUrl>http://www.ctodb.cn</organizationUrl>
-			<url>https://github.com/ctodb/push</url>
-		</developer>
-	</developers>
-	<dependencies>
-		<dependency>
-			<groupId>cn.ctodb.push</groupId>
-			<artifactId>push-core</artifactId>
-		</dependency>
-	</dependencies>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>push-sdk</artifactId>
+    <parent>
+        <groupId>cn.ctodb.push</groupId>
+        <artifactId>push-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <developers>
+        <developer>
+            <name>cc</name>
+            <email>lichaohn@163.com</email>
+            <organizationUrl>http://www.ctodb.cn</organizationUrl>
+            <url>https://github.com/ctodb/push</url>
+        </developer>
+    </developers>
+    <dependencies>
+        <dependency>
+            <groupId>cn.ctodb.push</groupId>
+            <artifactId>push-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20171018</version>
+        </dependency>
+    </dependencies>
 </project>

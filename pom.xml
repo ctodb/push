@@ -56,11 +56,11 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
 	<modules>
 		<module>cn.ctodb.push.core</module>
 		<module>cn.ctodb.push.server</module>
 		<module>cn.ctodb.push.sdk</module>
+		<module>cn.ctodb.push.reg</module>
 	</modules>
 	<build>
 		<plugins>

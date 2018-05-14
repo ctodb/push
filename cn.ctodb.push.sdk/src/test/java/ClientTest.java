@@ -5,13 +5,18 @@ import cn.ctodb.push.dto.Command;
 import cn.ctodb.push.dto.HandshakeReq;
 import cn.ctodb.push.dto.Packet;
 import cn.ctodb.push.dto.TextMessage;
-import org.junit.Before;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Created by cc on 2017/7/7.
@@ -24,9 +29,13 @@ public class ClientTest {
     @BeforeClass
     public static void init() {
         logger.debug("init");
+        String re = getJsonByInternet("http://localhost:8080/nodes");
+        JSONArray json = new JSONArray(re);
+        String str = json.get(0).toString();
+        String[] serverUrl = str.split("[:]");
         ClientProperties properties = new ClientProperties();
-        properties.setServerHost("localhost");
-        properties.setServerPort(9901);
+        properties.setServerHost(serverUrl[0]);
+        properties.setServerPort(Integer.parseInt(serverUrl[1]));
         client = new Client(properties);
         try {
             client.start();
@@ -35,7 +44,7 @@ public class ClientTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        for (; ; ) {
+        while (true) {
             try {
                 Thread.sleep(1000L);
             } catch (InterruptedException e) {
@@ -67,4 +76,28 @@ public class ClientTest {
         Thread.sleep(2000L);
     }
 
+    public static String getJsonByInternet(String path) {
+        try {
+            URL url = new URL(path.trim());
+            //打开连接
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+            if (200 == urlConnection.getResponseCode()) {
+                //得到输入流
+                InputStream is = urlConnection.getInputStream();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                byte[] buffer = new byte[1024];
+                int len = 0;
+                while (-1 != (len = is.read(buffer))) {
+                    baos.write(buffer, 0, len);
+                    baos.flush();
+                }
+                return baos.toString("utf-8");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

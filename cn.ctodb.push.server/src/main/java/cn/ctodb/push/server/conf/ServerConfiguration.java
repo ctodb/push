@@ -7,8 +7,11 @@ import cn.ctodb.push.server.handler.HandshakeHandler;
 import cn.ctodb.push.server.handler.HeartBeatHandler;
 import cn.ctodb.push.server.handler.TextMessageHandler;
 import org.msgpack.MessagePack;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,16 +19,35 @@ import cn.ctodb.push.server.ServerHandler;
 import cn.ctodb.push.server.service.MgsServer;
 import cn.ctodb.push.utils.MsgPackDecode;
 import cn.ctodb.push.utils.MsgPackEncode;
+import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
+import java.net.ServerSocket;
 
 @Configuration
 @EnableConfigurationProperties(ApplicationProperties.class)
 public class ServerConfiguration {
+    private Logger logger = LoggerFactory.getLogger(ServerConfiguration.class);
 
     @Autowired
     private ApplicationProperties serverProperties;
 
+    @Autowired
+    private RestTemplateBuilder builder;
+
     @Bean
-    public MgsServer mgsServer() {
+    public RestTemplate restTemplate() {
+        return builder.build();
+    }
+
+    @Bean
+    public MgsServer mgsServer() throws IOException {
+        if (serverProperties.getServer().getPort() < 0) {
+            ServerSocket serverSocket = new ServerSocket(0); //读取空闲的可用端口
+            int port = serverSocket.getLocalPort();
+            serverProperties.getServer().setPort(port);
+            logger.info("使用随机端口号:" + port);
+        }
         return new MgsServer(serverProperties.getServer().getPort(), serverHandler(), msgPackDecode(), msgPackEncode());
     }
 

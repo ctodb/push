@@ -19,20 +19,21 @@ spring:
             key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
             value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     redis:
-        # 单服务配置
-#        host: server.ctodb.cn
-#        port: 6379
-# 哨兵模式配置
         password: 123456
         pool:
             maxIdle: 8
             minIdle: 0
             maxActive: 8
             maxWait: -1
-        sentinel:
-            master: mymaster
-            nodes: 10.15.0.246:26379,10.15.0.247:26379,10.15.0.248:26379
+        # 单服务配置
+        host: 10.16.51.2
+        port: 6379
+        # 哨兵模式配置
+#        sentinel:
+#            master: mymaster
+#            nodes:
 
 application:
     server:
-        port: 9901 # 默认端口 9901
+        port: -1 # 默认端口 9901
+        center: http://localhost:8080

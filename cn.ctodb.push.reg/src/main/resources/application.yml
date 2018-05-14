@@ -1,0 +1,15 @@
+spring:
+    redis:
+        password: qwe123#
+        pool:
+            maxIdle: 8
+            minIdle: 0
+            maxActive: 8
+            maxWait: -1
+        # 单服务配置
+        host: 10.16.51.2
+        port: 6379
+        # 哨兵模式配置
+#        sentinel:
+#            master: mymaster
+#            nodes: 10.15.0.246:26379,10.15.0.247:26379,10.15.0.248:26379

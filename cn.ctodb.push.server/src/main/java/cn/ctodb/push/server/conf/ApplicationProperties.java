@@ -12,7 +12,8 @@ public class ApplicationProperties {
 	}
 
 	public static class Server {
-		private int port = 9901;
+		private int port = -1;
+		private String center = "";
 
 		public int getPort() {
 			return port;
@@ -20,6 +21,14 @@ public class ApplicationProperties {
 
 		public void setPort(int port) {
 			this.port = port;
+		}
+
+		public String getCenter() {
+			return center;
+		}
+
+		public void setCenter(String center) {
+			this.center = center;
 		}
 	}
 

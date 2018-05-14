@@ -1,0 +1,9 @@
+
+  ${AnsiColor.GREEN} #######   ########   ######## ${AnsiColor.RED}  ########    #######         #######    ###   ##
+  ${AnsiColor.GREEN} ##           ##      ##    ## ${AnsiColor.RED}   ##    ##   ##    ##        ##         ####  ##
+  ${AnsiColor.GREEN} ##           ##      ##    ## ${AnsiColor.RED}   ##    ##   #######         ##         ## ## ##
+  ${AnsiColor.GREEN} ##           ##      ##    ## ${AnsiColor.RED}   ##    ##   ##    ##        ##         ##  ####
+  ${AnsiColor.GREEN} #######      ##      ######## ${AnsiColor.RED}  ########    #######    ##   #######    ##   ###
+
+${AnsiColor.BRIGHT_BLUE}:: Ctodb @ :: Running Spring Boot ${spring-boot.version} ::
+:: http://www.ctodb.cn ::${AnsiColor.DEFAULT}
