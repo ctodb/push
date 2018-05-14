@@ -28,13 +28,13 @@ public class TestUser {
     @Test
     public void test() throws Exception {
         logger.debug("模拟添加用户");
-        userManager.on("user001");
-        userManager.on("user002");
-        userManager.on("user003");
-        userManager.on("user004");
-        userManager.on("user005");
-        userManager.on("user001");
-        userManager.on("user001");
+//        userManager.on("user001");
+//        userManager.on("user002");
+//        userManager.on("user003");
+//        userManager.on("user004");
+//        userManager.on("user005");
+//        userManager.on("user001");
+//        userManager.on("user001");
     }
 
     @Test
