@@ -24,6 +24,13 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+/**
+ * All rights Reserved, Designed By www.ctodb.cn
+ *
+ * @version V1.0
+ * @author: lichaohn@163.com
+ * @Copyright: 2018 www.ctodb.cn Inc. All rights reserved.
+ */
 @Configuration
 @EnableConfigurationProperties(ApplicationProperties.class)
 public class ServerConfiguration {

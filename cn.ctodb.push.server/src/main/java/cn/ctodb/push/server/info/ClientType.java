@@ -2,6 +2,13 @@ package cn.ctodb.push.server.info;
 
 import java.util.Arrays;
 
+/**
+ * All rights Reserved, Designed By www.ctodb.cn
+ *
+ * @version V1.0
+ * @author: lichaohn@163.com
+ * @Copyright: 2018 www.ctodb.cn Inc. All rights reserved.
+ */
 public enum ClientType {
     MOBILE(1, "android", "ios"),
     PC(2, "windows", "mac", "linux"),

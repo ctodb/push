@@ -7,9 +7,11 @@ import cn.ctodb.push.handler.PacketHandler;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
- * Created by ohun on 2015/12/22.
+ * All rights Reserved, Designed By www.ctodb.cn
  *
- * @author ohun@live.cn
+ * @version V1.0
+ * @author: lichaohn@163.com
+ * @Copyright: 2018 www.ctodb.cn Inc. All rights reserved.
  */
 public final class HeartBeatHandler extends PacketHandler {
 

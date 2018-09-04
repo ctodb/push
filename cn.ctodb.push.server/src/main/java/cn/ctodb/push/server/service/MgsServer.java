@@ -1,26 +1,28 @@
 package cn.ctodb.push.server.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.DisposableBean;
-
 import cn.ctodb.push.server.ServerHandler;
 import cn.ctodb.push.utils.MsgPackDecode;
 import cn.ctodb.push.utils.MsgPackEncode;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.DisposableBean;
 
 import java.util.UUID;
 
+/**
+ * All rights Reserved, Designed By www.ctodb.cn
+ *
+ * @version V1.0
+ * @author: lichaohn@163.com
+ * @Copyright: 2018 www.ctodb.cn Inc. All rights reserved.
+ */
 public class MgsServer implements DisposableBean, Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(MgsServer.class);
@@ -53,6 +55,7 @@ public class MgsServer implements DisposableBean, Runnable {
     private final MsgPackDecode msgPackDecode;
     private final MsgPackEncode msgPackEncode;
 
+    @Override
     public void run() {
         ServerBootstrap b = new ServerBootstrap();// 引导辅助程序
 
@@ -111,4 +114,5 @@ public class MgsServer implements DisposableBean, Runnable {
     public int getPort() {
         return port;
     }
+
 }

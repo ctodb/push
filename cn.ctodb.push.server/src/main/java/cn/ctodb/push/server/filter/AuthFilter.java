@@ -18,6 +18,13 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * All rights Reserved, Designed By www.ctodb.cn
+ *
+ * @version V1.0
+ * @author: lichaohn@163.com
+ * @Copyright: 2018 www.ctodb.cn Inc. All rights reserved.
+ */
 public class AuthFilter implements Filter {
 
     private Logger logger = LoggerFactory.getLogger(AuthFilter.class);
