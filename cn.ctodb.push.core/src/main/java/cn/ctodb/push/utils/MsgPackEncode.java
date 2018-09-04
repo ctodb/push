@@ -9,14 +9,18 @@ import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.handler.codec.MessageToByteEncoder;
 
 /**
- * 编码工具
+ * All rights Reserved, Designed By www.ctodb.cn
+ *
+ * @version V1.0
+ * @author: lichaohn@163.com
+ * @Copyright: 2018 www.ctodb.cn Inc. All rights reserved.
  */
 @Sharable
 public class MsgPackEncode extends MessageToByteEncoder<Packet> {
 
-	@Override
-	protected void encode(ChannelHandlerContext ctx, Packet packet, ByteBuf out) throws Exception {
-		out.writeBytes(new MessagePack().write(packet));
-	}
+    @Override
+    protected void encode(ChannelHandlerContext ctx, Packet packet, ByteBuf out) throws Exception {
+        out.writeBytes(new MessagePack().write(packet));
+    }
 
 }

@@ -20,9 +20,11 @@
 package cn.ctodb.push.dto;
 
 /**
- * Created by ohun on 2015/12/30.
+ * All rights Reserved, Designed By www.ctodb.cn
  *
- * @author ohun@live.cn
+ * @version V1.0
+ * @author: lichaohn@163.com
+ * @Copyright: 2018 www.ctodb.cn Inc. All rights reserved.
  */
 public enum ErrorCode {
     OFFLINE(1, "user offline"),

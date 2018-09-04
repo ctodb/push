@@ -1,12 +1,10 @@
 package cn.ctodb.push.core;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import cn.ctodb.push.dto.Command;
 import cn.ctodb.push.dto.Packet;
 import cn.ctodb.push.handler.PacketHandler;
-import io.netty.channel.ChannelHandlerContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,9 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by ohun on 2015/12/22.
- *
- * @author ohun@live.cn
+ * All rights Reserved, Designed By www.ctodb.cn
+ * @author: lichaohn@163.com
+ * @version V1.0
+ * @Copyright: 2018 www.ctodb.cn Inc. All rights reserved.
  */
 public final class PacketReceiver {
 

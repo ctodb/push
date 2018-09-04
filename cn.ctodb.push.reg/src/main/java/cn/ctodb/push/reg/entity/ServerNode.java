@@ -1,6 +1,8 @@
 package cn.ctodb.push.reg.entity;
 
-public class ServerNode {
+import java.io.Serializable;
+
+public class ServerNode implements Serializable {
 
     private String id;
     private String url;
@@ -31,10 +33,11 @@ public class ServerNode {
         this.lastCheckTime = lastCheckTime;
     }
 
-    public boolean isTimeout() {
-        if (System.currentTimeMillis() - lastCheckTime > (1000 * 60)) {
-            return true;
-        }
-        return false;
+    public long getConnectCount() {
+        return connectCount;
+    }
+
+    public void setConnectCount(long connectCount) {
+        this.connectCount = connectCount;
     }
 }

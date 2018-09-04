@@ -11,7 +11,7 @@
 		<developer>
 			<name>cc</name>
 			<email>lichaohn@163.com</email>
-			<organizationUrl>http://www.ctodb.cn</organizationUrl>
+			<organizationUrl>https://www.ctodb.cn</organizationUrl>
 			<url>https://github.com/ctodb/push</url>
 		</developer>
 	</developers>
@@ -34,6 +34,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 		<dependency>
@@ -49,6 +53,14 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.37</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
 		</dependency>
 	</dependencies>
 	<build>

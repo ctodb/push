@@ -30,6 +30,7 @@ public class ClientTest {
     public static void init() {
         logger.debug("init");
         String re = getJsonByInternet("http://localhost:8080/nodes");
+        logger.debug("发现服务器地址：{}", re);
         JSONArray json = new JSONArray(re);
         String str = json.get(0).toString();
         String[] serverUrl = str.split("[:]");

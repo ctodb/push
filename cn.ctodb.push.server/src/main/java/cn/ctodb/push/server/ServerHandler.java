@@ -26,14 +26,14 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void handlerAdded(ChannelHandlerContext ctx) throws Exception { // (2)
+    public void handlerAdded(ChannelHandlerContext ctx) { // (2)
         Channel incoming = ctx.channel();
         logger.debug("handlerAdded : {}", incoming.remoteAddress());
         channels.add(ctx.channel());
     }
 
     @Override
-    public void handlerRemoved(ChannelHandlerContext ctx) throws Exception { // (3)
+    public void handlerRemoved(ChannelHandlerContext ctx) { // (3)
         Channel incoming = ctx.channel();
         logger.debug("handlerRemoved : {}", incoming.remoteAddress());
         channels.remove(ctx.channel());

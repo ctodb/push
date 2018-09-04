@@ -38,7 +38,7 @@ public class ApplicationReadyEventListener implements ApplicationListener<Applic
                     e.printStackTrace();
                 }
                 try {
-                    Thread.sleep(1000 * 60l);
+                    Thread.sleep(1000 * 30l);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

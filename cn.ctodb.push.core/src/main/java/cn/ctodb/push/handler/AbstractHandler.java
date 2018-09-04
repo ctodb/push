@@ -10,7 +10,11 @@ import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 
 /**
- * Created by cc on 2017/7/7.
+ * All rights Reserved, Designed By www.ctodb.cn
+ *
+ * @version V1.0
+ * @author: lichaohn@163.com
+ * @Copyright: 2018 www.ctodb.cn Inc. All rights reserved.
  */
 public abstract class AbstractHandler<T> extends PacketHandler {
 
