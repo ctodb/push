@@ -18,21 +18,24 @@ spring:
             auto-commit-interval: 100
             key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
             value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    cache:
+        type: redis
     redis:
-        # 单服务配置
-        host: server.ctodb.cn
+        host: 10.16.51.2
         port: 6379
-#        password: 123456
-#        pool:
-#            maxIdle: 8
-#            minIdle: 0
-#            maxActive: 8
-#            maxWait: -1
-# 哨兵模式配置
-#        sentinel:
-#            master: mymaster
-#            nodes: server.ctodb.cn:6379
+        password: 123456
+#        cluster:
+#            max-redirects: 3
+#            nodes:
+#              - 10.16.51.2:6379
+        lettuce:
+            pool:
+                max-active:  8 # 连接池最大连接数（使用负值表示没有限制）
+                max-idle: 8 # 连接池中的最大空闲连接
+                min-idle: 0 # 连接池中的最小空闲连接
+                max-wait: -1ms # 连接池最大阻塞等待时间（使用负值表示没有限制）
 
 application:
     server:
-        port: 9901 # 默认端口 9901
+        port: -1 # 默认端口 9901
+        center: http://localhost:8080

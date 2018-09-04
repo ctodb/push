@@ -1,19 +1,28 @@
 package cn.ctodb.push.handler;
 
+import cn.ctodb.push.core.Connection;
+import cn.ctodb.push.dto.Command;
 import cn.ctodb.push.dto.Packet;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
- * Created by ohun on 2015/12/22.
+ * All rights Reserved, Designed By www.ctodb.cn
  *
- * @author ohun@live.cn
+ * @version V1.0
+ * @author: lichaohn@163.com
+ * @Copyright: 2018 www.ctodb.cn Inc. All rights reserved.
  */
 public final class HeartBeatHandler extends PacketHandler {
 
     @Override
-    public void handle(Packet packet, ChannelHandlerContext ctx) {
-        logger.debug("heart : {}", ctx.channel());
-        ctx.channel().writeAndFlush(packet);
+    public Command cmd() {
+        return Command.HEARTBEAT;
+    }
+
+    @Override
+    public void handle(Packet packet, Connection connection) {
+        logger.debug("heart : {}", connection.getChc().channel());
+        connection.getChc().channel().writeAndFlush(packet);
     }
 
 }

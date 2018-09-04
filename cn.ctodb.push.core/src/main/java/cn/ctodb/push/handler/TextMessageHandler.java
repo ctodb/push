@@ -1,31 +1,31 @@
 package cn.ctodb.push.handler;
 
-import cn.ctodb.push.dto.Packet;
+import cn.ctodb.push.core.Connection;
+import cn.ctodb.push.dto.Command;
 import cn.ctodb.push.dto.TextMessage;
 import io.netty.channel.ChannelHandlerContext;
-import org.msgpack.MessagePack;
-
-import java.io.IOException;
 
 /**
- * Created by ohun on 2015/12/22.
+ * All rights Reserved, Designed By www.ctodb.cn
  *
- * @author ohun@live.cn
+ * @version V1.0
+ * @author: lichaohn@163.com
+ * @Copyright: 2018 www.ctodb.cn Inc. All rights reserved.
  */
-public final class TextMessageHandler extends MessageHandler<TextMessage> {
+public final class TextMessageHandler extends AbstractHandler<TextMessage> {
 
     @Override
-    public TextMessage decode(Packet packet) {
-        try {
-            return new MessagePack().read(packet.getBody(), TextMessage.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public Class<TextMessage> getType() {
+        return TextMessage.class;
     }
 
     @Override
-    public void handle(TextMessage message, ChannelHandlerContext ctx) {
+    public void handle(TextMessage message, Connection connection) {
         logger.debug(message.getContent());
+    }
+
+    @Override
+    public Command cmd() {
+        return Command.TEXT_MESSAGE;
     }
 }

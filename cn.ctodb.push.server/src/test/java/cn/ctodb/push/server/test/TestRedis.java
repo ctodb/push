@@ -1,6 +1,6 @@
 package cn.ctodb.push.server.test;
 
-import cn.ctodb.push.server.Application;
+import cn.ctodb.push.server.PushServerApp;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -11,7 +11,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(classes = PushServerApp.class)
 public class TestRedis {
     private Logger logger = LoggerFactory.getLogger(TestRedis.class);
 
