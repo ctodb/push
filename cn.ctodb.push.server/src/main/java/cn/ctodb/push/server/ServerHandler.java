@@ -2,7 +2,7 @@ package cn.ctodb.push.server;
 
 import cn.ctodb.push.core.Connection;
 import cn.ctodb.push.core.PacketReceiver;
-import cn.ctodb.push.dto.Packet;
+import com.google.protobuf.MessageLite;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
@@ -16,7 +16,9 @@ import org.slf4j.LoggerFactory;
 // 服务端消息处理统一入口
 @Sharable
 public class ServerHandler extends ChannelInboundHandlerAdapter {
+
     private Logger logger = LoggerFactory.getLogger(ServerHandler.class);
+
     public static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
     private PacketReceiver packetReceiver;
@@ -40,15 +42,6 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception { // (4)
-        Packet packet = (Packet) msg;
-        Connection connection = new Connection();
-        connection.setChc(ctx);
-        Channel channel = ctx.channel();
-        packetReceiver.onReceive(packet, connection);
-    }
-
-    @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception { // (5)
         Channel incoming = ctx.channel();
         logger.debug("channelActive : {}", incoming.remoteAddress());
@@ -67,4 +60,15 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         logger.error("exceptionCaught : " + incoming.remoteAddress(), cause);
         ctx.close();
     }
+
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        logger.debug("channelRead");
+        MessageLite packet = (MessageLite) msg;
+        Connection connection = new Connection();
+        connection.setChc(ctx);
+        Channel channel = ctx.channel();
+        packetReceiver.onReceive(packet, connection);
+    }
+
 }

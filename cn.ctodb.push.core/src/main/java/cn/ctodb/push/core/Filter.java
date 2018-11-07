@@ -1,6 +1,7 @@
 package cn.ctodb.push.core;
 
-import cn.ctodb.push.dto.Packet;
+
+import com.google.protobuf.MessageLite;
 
 /**
  * All rights Reserved, Designed By www.ctodb.cn
@@ -11,6 +12,6 @@ import cn.ctodb.push.dto.Packet;
  */
 public interface Filter {
 
-    FilterResult exec(Packet packet, Connection connection);
+    FilterResult exec(MessageLite packet, Connection connection);
 
 }

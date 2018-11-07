@@ -4,13 +4,19 @@ import java.io.IOException;
 
 import cn.ctodb.push.core.Connection;
 import cn.ctodb.push.core.PacketReceiver;
-import cn.ctodb.push.dto.Command;
-import cn.ctodb.push.dto.Packet;
+import com.google.protobuf.MessageLite;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelHandler.Sharable;
 
+/**
+ * All rights Reserved, Designed By www.ctodb.cn
+ *
+ * @version V1.0
+ * @author: lichaohn@163.com
+ * @Copyright: 2018 www.ctodb.cn Inc. All rights reserved.
+ */
 @Sharable
 public class ClientHandler extends ChannelInboundHandlerAdapter {
     private PacketReceiver packetReceiver;
@@ -37,7 +43,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws IOException {
-        Packet packet = (Packet) msg;
+        MessageLite packet = (MessageLite) msg;
         Connection connection = new Connection();
         connection.setChc(ctx);
         packetReceiver.onReceive(packet, connection);

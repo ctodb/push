@@ -1,0 +1,17 @@
+syntax="proto3";
+package cn.ctodb.push.proto;
+
+message AuthReq {
+    string token = 1;
+    string uid = 2;
+}
+
+message AuthResp {
+    enum Status {
+        OK = 0;
+        ERROR = -1;
+    }
+    Status status = 1;
+    int32 error_code = 2;
+    string err_msg = 3;
+}

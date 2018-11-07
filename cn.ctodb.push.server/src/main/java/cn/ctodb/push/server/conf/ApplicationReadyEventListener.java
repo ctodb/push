@@ -6,13 +6,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
-import cn.ctodb.push.server.service.MgsServer;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import cn.ctodb.push.server.MgsServer;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * All rights Reserved, Designed By www.ctodb.cn
@@ -34,23 +29,23 @@ public class ApplicationReadyEventListener implements ApplicationListener<Applic
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         new Thread(mgsServer).start();
-        new Thread(() -> {
-            while (true) {
-                try {
-                    MultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();
-                    requestEntity.add("id", mgsServer.getId());
-                    requestEntity.add("port", mgsServer.getPort() + "");
-                    restTemplate.postForObject(applicationProperties.getServer().getCenter() + "/keep", requestEntity, Object.class);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                try {
-                    Thread.sleep(1000 * 30l);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+//        new Thread(() -> {
+//            while (true) {
+//                try {
+//                    MultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();
+//                    requestEntity.add("id", mgsServer.getId());
+//                    requestEntity.add("port", mgsServer.getPort() + "");
+//                    restTemplate.postForObject(applicationProperties.getServer().getCenter() + "/keep", requestEntity, Object.class);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                try {
+//                    Thread.sleep(1000 * 30l);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
     }
 
     @Override

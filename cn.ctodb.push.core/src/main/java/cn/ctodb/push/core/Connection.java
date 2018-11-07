@@ -1,6 +1,6 @@
 package cn.ctodb.push.core;
 
-import cn.ctodb.push.dto.Packet;
+import com.google.protobuf.MessageLite;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
@@ -14,7 +14,7 @@ public class Connection {
 
     private ChannelHandlerContext chc;
 
-    public void send(Packet packet) {
+    public void send(MessageLite packet) {
         chc.channel().writeAndFlush(packet);
     }
 

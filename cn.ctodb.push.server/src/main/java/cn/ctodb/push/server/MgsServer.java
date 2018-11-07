@@ -1,15 +1,14 @@
-package cn.ctodb.push.server.service;
+package cn.ctodb.push.server;
 
-import cn.ctodb.push.server.ServerHandler;
-import cn.ctodb.push.utils.MsgPackDecode;
-import cn.ctodb.push.utils.MsgPackEncode;
+import cn.ctodb.push.utils.ProtobufDecoder;
+import cn.ctodb.push.utils.ProtobufEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -42,18 +41,14 @@ public class MgsServer implements DisposableBean, Runnable {
     private String status = "stop";
     private String id;
 
-    public MgsServer(int port, ServerHandler serverHandler, MsgPackDecode msgPackDecode, MsgPackEncode msgPackEncode) {
+    public MgsServer(int port, ServerHandler serverHandler) {
         super();
         this.id = UUID.randomUUID().toString();
         this.port = port;
         this.serverHandler = serverHandler;
-        this.msgPackDecode = msgPackDecode;
-        this.msgPackEncode = msgPackEncode;
     }
 
     private final ServerHandler serverHandler;
-    private final MsgPackDecode msgPackDecode;
-    private final MsgPackEncode msgPackEncode;
 
     @Override
     public void run() {
@@ -67,13 +62,12 @@ public class MgsServer implements DisposableBean, Runnable {
             b.childHandler(new ChannelInitializer<SocketChannel>() {// 有连接到达时会创建一个channel
                 protected void initChannel(SocketChannel ch) throws Exception {
                     logger.debug("客户端:{} 初始化", ch.remoteAddress());
-                    // pipeline管理channel中的Handler，在channel队列中添加一个handler来处理业务
-                    ch.pipeline().addLast("frameDecoder",
-                            new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
-                    ch.pipeline().addLast("frameEncoder", new LengthFieldPrepender(4));
-                    ch.pipeline().addLast("decoder", msgPackDecode);
-                    ch.pipeline().addLast("encoder", msgPackEncode);
-                    ch.pipeline().addLast(serverHandler);
+                    ChannelPipeline pipeline = ch.pipeline();
+                    pipeline.addLast(new ProtobufVarint32FrameDecoder());
+                    pipeline.addLast(new ProtobufDecoder());
+                    pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
+                    pipeline.addLast(new ProtobufEncoder());
+                    pipeline.addLast(serverHandler);
                 }
             });
             b.option(ChannelOption.SO_BACKLOG, 128);
@@ -82,10 +76,10 @@ public class MgsServer implements DisposableBean, Runnable {
             status = "run";
             ChannelFuture f = b.bind(port).sync();// 配置完成，开始绑定server，通过调用sync同步方法阻塞直到绑定成功
             channel = f.channel();
-            f.channel().closeFuture().sync();// 应用程序会一直等待，直到channel关闭
+            channel.closeFuture().await();// 应用程序会一直等待，直到channel关闭
         } catch (Exception e) {
             status = "error";
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
 
     }

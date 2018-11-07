@@ -1,4 +1,4 @@
-package cn.ctodb.push.dto;
+package cn.ctodb.push.core;
 
 /**
  * All rights Reserved, Designed By www.ctodb.cn
@@ -8,16 +8,10 @@ package cn.ctodb.push.dto;
  * @Copyright: 2018 www.ctodb.cn Inc. All rights reserved.
  */
 public enum Command {
-    HEARTBEAT(1),
-    HANDSHAKE_REQ(10),
-    HANDSHAKE_RESP(11),
-    ERROR(2),
-    LOGIN(3),
-    LOGOUT(4),
-    BIND(5),
-    UNBIND(6),
-    PUSH(7),
-    TEXT_MESSAGE(100),
+    AUTH_REQ(1),
+    AUTH_RESP(2),
+    MESSAGE_RESP(3),
+    MESSAGE_REQ_TEXT(4),
     UNKNOWN(-1);
 
     Command(int cmd) {

@@ -1,9 +1,8 @@
 package cn.ctodb.push.client.conf;
 
 import cn.ctodb.push.client.ClientHandler;
-import cn.ctodb.push.client.handler.HandshakeHandler;
+import cn.ctodb.push.client.handler.AuthHandler;
 import cn.ctodb.push.core.PacketReceiver;
-import cn.ctodb.push.handler.ErrorHandler;
 
 /**
  * Created by cc on 2017/8/21.
@@ -18,8 +17,7 @@ public class ClientConfiguration {
 
     public static void init() {
         packetReceiver = new PacketReceiver();
-        packetReceiver.addHandler(new HandshakeHandler());
-        packetReceiver.addHandler(new ErrorHandler());
+        new AuthHandler();
     }
 
     public static PacketReceiver packetReceiver() {

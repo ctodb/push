@@ -37,5 +37,5 @@ spring:
 
 application:
     server:
-        port: -1 # 默认端口 9901
+        port: 9901 # -1 # 默认端口 9901
         center: http://localhost:8080

@@ -1,0 +1,27 @@
+syntax="proto3";
+package cn.ctodb.push.proto;
+
+message BaseInfo {
+    string from = 1; // 发送者
+    string to = 2; // 接受者
+    ToType toType = 3; // 接收者类型
+    int64 cc = 4; // 时间戳用于检查重复发送
+}
+
+enum ToType {
+  USER = 0; // 用户
+  GROUP = 1; // 群组
+}
+
+message MessageResp {
+    int64 id = 1; // 返回消息id
+    int64 cc = 2; // 与TextReq对应，用于检查发送状态
+    int64 ts = 3; // 实际发送成功时间戳
+}
+
+message TextReq {
+    BaseInfo baseInfo = 1;// 基本信息
+    string content = 2; // 内容
+}
+
+// & 'C:\Program Files\protoc-3.6.1-win32\bin\protoc.exe' -I=src/main/proto --java_out=src/main/java message.proto
